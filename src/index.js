@@ -3,7 +3,7 @@ const express = require('express');
 const {PORT} = require("./config/server_config");
 const { sendBasicEmail } = require("./services/email-service");
 const {create} = require("./controllers/email-controller");
-
+const emailJobs = require("./utils/jobs");
 function setUpServer(){
   
      const app = express();
@@ -12,7 +12,7 @@ function setUpServer(){
      app.use(bodyParser.urlencoded({extended:true}));
       
      app.post('/mail',create);
-
+      
      app.listen(PORT,()=>{
         console.log(`Server is running on port ${PORT}`);
       
@@ -23,7 +23,7 @@ function setUpServer(){
         //   "This is a testing email",
         //   "Hey, how are you, I hope you like the support"
         // );
-        
+        emailJobs();
      });
 
 }

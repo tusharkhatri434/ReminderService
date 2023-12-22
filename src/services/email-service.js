@@ -12,6 +12,25 @@ const createMail = async (data)=>{
      }
 }
 
+const findMail = async ()=>{
+  try {
+    const response = await emailRepository.findPendingMail({status:"PENDING"});
+    return response;
+    // console.log(response);
+  } catch (error) {
+    console.log("something went wrong in service layer");
+    throw error;
+  }
+}
+
+const updateTicket = async (ticketId, data) => {
+  try {
+    const response = await emailRepository.update(ticketId, data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody) => {
   try {
@@ -32,4 +51,6 @@ const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody) => {
 module.exports = {
   createMail,
   sendBasicEmail,
+  updateTicket,
+  findMail,
 };
