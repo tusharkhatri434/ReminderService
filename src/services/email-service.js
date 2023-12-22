@@ -1,4 +1,17 @@
-const sender = require("../utils/email_config")
+const sender = require("../config/email_config")
+const EmailRepository = require("../repository/email_repsoitory");
+const emailRepository = new EmailRepository();
+
+const createMail = async (data)=>{
+     try {
+        const response = await emailRepository.createMail(data);
+        return response;
+     } catch (error) {
+        console.log("Something went Wrong in service layer");
+        throw {error};
+     }
+}
+
 
 const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody) => {
   try {
@@ -15,6 +28,8 @@ const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody) => {
   }
 };
 
+
 module.exports = {
+  createMail,
   sendBasicEmail,
 };
